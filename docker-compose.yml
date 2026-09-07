@@ -1,0 +1,22 @@
+# Local Postgres for development. Matches the URLs in .env.example.
+#   docker compose up -d
+#   npm run db:migrate && npm run db:rls-check && npm run db:seed -- --user user_xxx
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bookedin
+    volumes:
+      - bookedin-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bookedin"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  bookedin-pg:
