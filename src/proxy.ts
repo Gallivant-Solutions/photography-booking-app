@@ -23,6 +23,8 @@ const usesClerk = createRouteMatcher([
   "/sign-up(.*)",
   "/api/stripe/connect(.*)",
   "/api/billing(.*)",
+  // Clerk's Frontend API auto-proxy path (handled inside clerkMiddleware).
+  "/__clerk(.*)",
 ]);
 
 /** Subset of the above that requires a signed-in user. */
@@ -61,5 +63,7 @@ export const config = {
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",
+    // Clerk's Frontend API auto-proxy path
+    "/__clerk/:path*",
   ],
 };
